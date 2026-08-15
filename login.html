@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Agnis</title>
+    <style>
+      :root {
+        --accent: #4f46e5;
+        --accent-2: #6366f1;
+        --accent-3: #3b82f6;
+        --text: #0f172a;
+        --muted: #64748b;
+        --panel: #ffffff;
+        --border: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7ff, #eef4ff);
+        color: var(--text);
+      }
+
+      header {
+        padding: 20px 40px;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+
+      .logo h2 {
+        margin: 0;
+        font-size: 1.8rem;
+        color: #4f46e5;
+        font-weight: 700;
+      }
+
+      .page-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .page-nav a {
+        text-decoration: none;
+        color: #475569;
+        background: #eef2ff;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+      }
+
+      .page-nav a:hover,
+      .page-nav a.active {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: white;
+      }
+
+      .page-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 24px 60px;
+      }
+
+      .card {
+        width: min(980px, 100%);
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        background: var(--panel);
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+        margin: 0 auto;
+      }
+
+      .left {
+        background: linear-gradient(135deg, var(--accent), var(--accent-3));
+        color: white;
+        padding: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+
+      .left::after {
+        content: "";
+        position: absolute;
+        inset: auto -50px -50px auto;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.14);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: 0.04em;
+        margin-bottom: 24px;
+      }
+
+      .brand-badge {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.2);
+        display: grid;
+        place-items: center;
+        font-size: 1.1rem;
+      }
+
+      .left h1 {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        margin: 0 0 12px;
+      }
+
+      .left p {
+        margin: 0;
+        max-width: 360px;
+        line-height: 1.7;
+        opacity: 0.95;
+      }
+
+      .right {
+        padding: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .right h2 {
+        margin: 0 0 8px;
+        font-size: 1.7rem;
+      }
+
+      .right .subtitle {
+        margin: 0 0 24px;
+        color: var(--muted);
+      }
+
+      form {
+        display: grid;
+        gap: 14px;
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      label {
+        font-weight: 700;
+        color: #334155;
+        font-size: 0.95rem;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.95rem;
+      }
+
+      .row a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+      }
+
+      button {
+        margin-top: 8px;
+        border: 0;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: white;
+        padding: 12px 16px;
+        border-radius: 999px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 12px 24px rgba(79, 70, 229, 0.2);
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        margin: 18px 0 12px;
+        font-size: 0.9rem;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      .socials {
+        display: flex;
+        gap: 10px;
+      }
+
+      .socials button {
+        flex: 1;
+        background: #f8fafc;
+        color: #334155;
+        box-shadow: none;
+        border: 1px solid var(--border);
+      }
+
+      .footer-link {
+        margin-top: 20px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .footer-link a {
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      @media (max-width: 840px) {
+        .card {
+          grid-template-columns: 1fr;
+        }
+
+        .left {
+          padding: 32px;
+        }
+
+        .right {
+          padding: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <h2>Agnis</h2>
+        </div>
+        <div class="page-nav">
+          <a href="learn.html">Learn</a>
+          <a href="game.html">Games</a>
+          <a href="books.html">Books</a>
+          <a href="progress.html">Progress</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="Profile.html">Profile</a>
+          <a href="About us.html">About us</a>
+          <a href="Help and contact.html">Help & contact</a>
+          <a href="login.html" class="active">Sign In</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <div class="card">
+        <section class="left">
+          <div class="brand">
+            <div class="brand-badge">A</div>
+            <span>Agnis Learning</span>
+          </div>
+          <h1>Welcome back</h1>
+          <p>Sign in to continue learning, track your progress, and explore helpful resources.</p>
+        </section>
+
+        <section class="right">
+          <h2>Sign in</h2>
+          <p class="subtitle">Use your account details below</p>
+
+          <form>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="Enter your password" required />
+            </div>
+
+            <div class="row">
+              <label class="checkbox">
+                <input type="checkbox" />
+                <span>Remember me</span>
+              </label>
+              <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit">Sign in</button>
+          </form>
+
+          <div class="divider">or continue with</div>
+          <div class="socials">
+            <button type="button">Google</button>
+            <button type="button">Apple</button>
+          </div>
+
+          <p class="footer-link">
+            Don’t have an account? <a href="#">Create one</a>
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
